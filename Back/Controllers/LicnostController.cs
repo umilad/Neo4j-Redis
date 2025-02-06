@@ -15,97 +15,97 @@ public class LicnostController : ControllerBase
         _neo4jService = neo4jService;
     }
 
-[HttpGet("GetLicnost/{licnostID}")]
-public async Task<IActionResult> GetLicnost(Guid licnostID)
-{
-    try
-    {
-        using (var session = _neo4jService.GetSession())
-        {
-            var query = "MATCH (l:Licnost {ID: $licnostID}) RETURN l.Ime as Ime";
-            var parameters = new { licnostID = licnostID.ToString() };
-            var result = await session.RunAsync(query, parameters);
+// [HttpGet("GetLicnost/{licnostID}")]
+// public async Task<IActionResult> GetLicnost(Guid licnostID)
+// {
+//     try
+//     {
+//         using (var session = _neo4jService.GetSession())
+//         {
+//             var query = "MATCH (l:Licnost {ID: $licnostID}) RETURN l.Ime as Ime";
+//             var parameters = new { licnostID = licnostID.ToString() };
+//             var result = await session.RunAsync(query, parameters);
 
-            var records = await result.ToListAsync();
+//             var records = await result.ToListAsync();
 
-            if (records.Count == 0)
-            {
-                return NotFound("Licnost not found");
-            }
+//             if (records.Count == 0)
+//             {
+//                 return NotFound("Licnost not found");
+//             }
 
-            var record = records.SingleOrDefault();
+//             var record = records.SingleOrDefault();
 
-            // Accessing the properties directly
-           /* var licnostIDValue = record["licnostID"]?.As<string>();
+//             // Accessing the properties directly
+//            /* var licnostIDValue = record["licnostID"]?.As<string>();
 
-            if (licnostIDValue == null)
-            {
-                return StatusCode(500, new 
-                { 
-                    Error = "Internal Server Error", 
-                    Message = "licnostID is null or not present in the Neo4j record",
-                    DebugInfo = record?.Keys?.ToList() ?? new List<string>()
-                });
-            }*/
+//             if (licnostIDValue == null)
+//             {
+//                 return StatusCode(500, new 
+//                 { 
+//                     Error = "Internal Server Error", 
+//                     Message = "licnostID is null or not present in the Neo4j record",
+//                     DebugInfo = record?.Keys?.ToList() ?? new List<string>()
+//                 });
+//             }*/
 
-            return Ok(new 
-            {
-                Licnost = new Licnost
-                {
-                    Ime = record["Ime"]?.As<string>(),
+//             return Ok(new 
+//             {
+//                 Licnost = new Licnost
+//                 {
+//                     Ime = record["Ime"]?.As<string>(),
 
-                },
-            });
-        }
-    }
-    catch (Exception ex)
-    {
-        // Log the error
-        Console.WriteLine($"Error: {ex.Message}");
-        Console.WriteLine($"StackTrace: {ex.StackTrace}");
+//                 },
+//             });
+//         }
+//     }
+//     catch (Exception ex)
+//     {
+//         // Log the error
+//         Console.WriteLine($"Error: {ex.Message}");
+//         Console.WriteLine($"StackTrace: {ex.StackTrace}");
 
-        return StatusCode(500, new 
-        { 
-            Error = "Internal Server Error", 
-            Message = ex.Message
-        });
-    }
-}
+//         return StatusCode(500, new 
+//         { 
+//             Error = "Internal Server Error", 
+//             Message = ex.Message
+//         });
+//     }
+// }
 
-[HttpPost("CreateLicnost")]
-public async Task<IActionResult> CreateLicnost([FromBody] Licnost licnost)
-{
-    try
-    {
-        using (var session = _neo4jService.GetSession())
-        {
-            // Example query: "CREATE (u:User {UserId: $userId, UserName: $userName, Email: $email})"
-            var query = "CREATE (l:Licnost {ID: $id, Titula: $titula, Ime: $ime, Prezime: $prezime,  DatumRodjenja: $datumrodjenja, DatumSmrti: $datumsmrti, Pol: $pol, Slika: $slika, MestoRodjenja: $mestorodjenja})";
+// [HttpPost("CreateLicnost")]
+// public async Task<IActionResult> CreateLicnost([FromBody] Licnost licnost)
+// {
+//     try
+//     {
+//         using (var session = _neo4jService.GetSession())
+//         {
+//             // Example query: "CREATE (u:User {UserId: $userId, UserName: $userName, Email: $email})"
+//             var query = "CREATE (l:Licnost {ID: $id, Titula: $titula, Ime: $ime, Prezime: $prezime,  DatumRodjenja: $datumrodjenja, DatumSmrti: $datumsmrti, Pol: $pol, Slika: $slika, MestoRodjenja: $mestorodjenja})";
             
-            var parameters = new
-            {
-                id= Guid.NewGuid().ToString(),
-                titula = licnost.Titula,
-                ime= licnost.Ime,
-                prezime= licnost.Prezime,
-                datumrodjenja= licnost.DatumRodjenja,
-                datumsmrti= licnost.DatumSmrti,
-                pol= licnost.Pol,
-                slika= licnost.Slika,
-                mestorodjenja= licnost.MestoRodjenja
-            };
+//             var parameters = new
+//             {
+//                 id= Guid.NewGuid().ToString(),
+//                 titula = licnost.Titula,
+//                 ime= licnost.Ime,
+//                 prezime= licnost.Prezime,
+//                 datumrodjenja= licnost.DatumRodjenja,
+//                 datumsmrti= licnost.DatumSmrti,
+//                 pol= licnost.Pol,
+//                 slika= licnost.Slika,
+//                 mestorodjenja= licnost.MestoRodjenja
+//             };
 
-            await session.RunAsync(query, parameters);
-        }
+//             await session.RunAsync(query, parameters);
+//         }
 
-        return CreatedAtAction(nameof(GetLicnost), new { id = licnost.ID }, licnost);
-    }
-    catch (Exception ex)
-    {
-        // Handle exceptions (e.g., log the error)
-        return StatusCode(500, "Internal Server Error");
-    }
-}
+//         return CreatedAtAction(nameof(GetLicnost), new { id = licnost.ID }, licnost);
+//     }
+//     catch (Exception ex)
+//     {
+//         // Handle exceptions (e.g., log the error)
+//         return StatusCode(500, "Internal Server Error");
+//     }
+// }
 
 
    /*[HttpPut("{userId}")]
