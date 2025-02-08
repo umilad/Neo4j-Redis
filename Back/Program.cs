@@ -1,12 +1,20 @@
+using Neo4j.Berries.OGM;
+using Neo4j.Berries.OGM.Contexts;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddSingleton<Neo4jService>(new Neo4jService("neo4j+s://84307b33.databases.neo4j.io",
  "neo4j",
  "AEYgjhymGHlfJt2zx5MRhtkd6HZaSWCIQGgMITq0u6E"));
-builder.Services.AddNeo4j<MyGraphContext>(builder.Configuration, typeof(Program).Assembly);
 //builder.Services.AddSingleton<LicnostConfiguration>();
 
+//builder.Services.AddNeo4j<MyGraphContext>(builder.Configuration, typeof(Program).Assembly);
+builder.Services.AddNeo4j<MyGraphContext>(builder.Configuration, options =>
+{
+    options
+        .ConfigureFromAssemblies(typeof(Program).Assembly);
+});
 
 builder.Services.AddControllers();
 
