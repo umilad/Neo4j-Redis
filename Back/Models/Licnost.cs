@@ -1,4 +1,4 @@
-namespace KrvNijeVoda.Models { 
+namespace KrvNijeVoda.Back.Models { 
 
 public class Licnost {
     public Guid ID { get; set;}

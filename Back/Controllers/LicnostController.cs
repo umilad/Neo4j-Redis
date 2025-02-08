@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Neo4j.Driver;
 using System;
 using System.Threading.Tasks;
-using KrvNijeVoda.Models;
+using KrvNijeVoda.Back.Models;
 using System.Reflection.Metadata;
 [Route("api/[controller]")]
 [ApiController]

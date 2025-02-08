@@ -1,5 +1,5 @@
-namespace KrvNijeVoda.Models 
-{
+namespace KrvNijeVoda.Back.Models { 
+
     public class Vladar : Licnost {
         public Dinastija Dinastija { get; set; }
         public string Teritorija { get; set; }//slika
