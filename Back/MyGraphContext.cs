@@ -1,6 +1,7 @@
 using Neo4j.Berries.OGM.Contexts;
 using Neo4j.Berries.OGM.Models.Sets;
 using KrvNijeVoda.Back.Models;
+using Neo4j.Driver;
 
 public class MyGraphContext(Neo4jOptions options): GraphContext(options) 
 {

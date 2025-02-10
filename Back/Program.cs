@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Neo4j.Driver;
 using Neo4j.Berries.OGM;
 using Neo4j.Berries.OGM.Contexts;
+using KrvNijeVoda.Back.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,15 @@ builder.Services.AddSingleton<IDriver>(driver);
 // Register Neo4jService
 builder.Services.AddSingleton<Neo4jService>();
 
+// // Register Neo4jOptions with the necessary configurations
+// builder.Services.AddSingleton<Neo4jOptions>(provider =>
+// {
+//     var driver = provider.GetRequiredService<IDriver>();
+//     return new Neo4jOptions(driver); // Adjust constructor if necessary
+// });
+
+// Register the configuration for Neo4j from appsettings.json
+builder.Services.Configure<Neo4jOptions>(builder.Configuration.GetSection("Neo4j"));
 
 // builder.Services.AddSingleton<Neo4jService>(new Neo4jService("neo4j+s://84307b33.databases.neo4j.io",
 //  "neo4j",

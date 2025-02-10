@@ -36,6 +36,13 @@ public class LicnostController : ControllerBase
 
         return Ok(licnost);
     }
+
+
+
+
+
+
+
     // [HttpGet("all")]
     // public async Task<IActionResult>  GetAllLicnosti()
     // {
