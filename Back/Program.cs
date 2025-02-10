@@ -1,12 +1,29 @@
+using Microsoft.Extensions.DependencyInjection;
+using Neo4j.Driver;
 using Neo4j.Berries.OGM;
 using Neo4j.Berries.OGM.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var neo4jUri = "neo4j+s://84307b33.databases.neo4j.io";
+var neo4jUser = "neo4j";
+var neo4jPassword = "AEYgjhymGHlfJt2zx5MRhtkd6HZaSWCIQGgMITq0u6E";
+
 // Add services to the container.
-builder.Services.AddSingleton<Neo4jService>(new Neo4jService("neo4j+s://84307b33.databases.neo4j.io",
- "neo4j",
- "AEYgjhymGHlfJt2zx5MRhtkd6HZaSWCIQGgMITq0u6E"));
+
+// Register Neo4j driver as a singleton
+var driver = GraphDatabase.Driver(neo4jUri, AuthTokens.Basic(neo4jUser, neo4jPassword));
+builder.Services.AddSingleton<IDriver>(driver);
+
+
+
+// Register Neo4jService
+builder.Services.AddSingleton<Neo4jService>();
+
+
+// builder.Services.AddSingleton<Neo4jService>(new Neo4jService("neo4j+s://84307b33.databases.neo4j.io",
+//  "neo4j",
+//  "AEYgjhymGHlfJt2zx5MRhtkd6HZaSWCIQGgMITq0u6E"));
 //builder.Services.AddSingleton<LicnostConfiguration>();
 
 //builder.Services.AddNeo4j<MyGraphContext>(builder.Configuration, typeof(Program).Assembly);

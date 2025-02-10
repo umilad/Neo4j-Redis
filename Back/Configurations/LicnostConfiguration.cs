@@ -14,8 +14,9 @@ public class LicnostConfiguration : INodeConfiguration<Licnost>
 {
     public void Configure(NodeTypeBuilder<Licnost> builder)
     {
-        builder.HasRelationWithMultiple(x => (IEnumerable<Licnost>)x.GodinaRodjenja, "RODJEN", RelationDirection.Out);
-        builder.HasRelationWithMultiple(x => (IEnumerable<Licnost>)x.GodinaSmrti, "UMRO", RelationDirection.Out);
+        //builder.HasRelationWithMultiple(x => (IEnumerable<Godina>)x.GodinaRodjenja, "RODJEN", RelationDirection.Out);
+        builder.HasRelationWithSingle(x => x.GodinaRodjenja, "RODJEN", RelationDirection.Out);
+        //builder.HasRelationWithSingle(x => (IEnumerable<Godina>)x.GodinaSmrti, "UMRO", RelationDirection.Out);
         
     }   
 }

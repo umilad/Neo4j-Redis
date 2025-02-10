@@ -1,3 +1,6 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
+
 namespace KrvNijeVoda.Back.Models { 
 
 public class Licnost {

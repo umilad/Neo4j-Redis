@@ -4,16 +4,53 @@ using System;
 using System.Threading.Tasks;
 using KrvNijeVoda.Back.Models;
 using System.Reflection.Metadata;
-[Route("api/[controller]")]
+using System.Diagnostics;
+using KrvNijeVoda.Back;
+//using Bogus;
+
+namespace KrvNijeVoda.Controllers;
+
+[Route("Licnosti")]
 [ApiController]
 public class LicnostController : ControllerBase
 {
-    private readonly Neo4jService _neo4jService;
+    // private readonly Neo4jService _neo4jService;
 
-    public LicnostController(Neo4jService neo4jService)
+    // public LicnostController(Neo4jService neo4jService)
+    // {
+    //     _neo4jService = neo4jService;
+    // }
+    private readonly MyGraphContext _context;
+    public LicnostController(MyGraphContext context)
     {
-        _neo4jService = neo4jService;
+        _context = context;
     }
+   [HttpPost]
+    public async Task<IActionResult> CreateLicnost([FromBody] Licnost licnost)
+    {
+        if (licnost == null)
+            return BadRequest("Movie data is required.");
+
+        _context.Licnosti.Add(licnost);
+        await _context.SaveChangesAsync();
+
+        return Ok(licnost);
+    }
+    // [HttpGet("all")]
+    // public async Task<IActionResult>  GetAllLicnosti()
+    // {
+    //     var licnosti = await _context.Licnosti.ToListAsync();
+    //     return Ok(licnosti);
+    // }
+}
+
+// // ✅ Get all Licnost nodes
+//     [HttpGet("all")]
+//     public IActionResult GetAllLicnosti()
+//     {
+//         var licnosti = _context.Licnosti.ToList();
+//         return Ok(licnosti);
+//     }
 
 // [HttpGet("GetLicnost/{licnostID}")]
 // public async Task<IActionResult> GetLicnost(Guid licnostID)
@@ -181,5 +218,3 @@ public async Task<IActionResult> DeleteUser(Guid userId)
         return StatusCode(500, "Internal Server Error");
     }
 }*/
-
-}
