@@ -12,7 +12,11 @@ public class LicnostConfiguration : INodeConfiguration<Licnost>
     public void Configure(NodeTypeBuilder<Licnost> builder)
     {
         builder.HasRelationWithSingle(x => x.MestoRodjenja, "RODJEN_U", RelationDirection.Out);
+        // .OnMerge()
+        // .Include(x => x.Id); ako menjamo objekat pa je povezan samo sa id?? new ZNAM FARHADE
         builder.HasRelationWithSingle(x => x.GodinaRodjenja, "RODJEN", RelationDirection.Out);
         builder.HasRelationWithSingle(x => x.GodinaSmrti, "UMRO", RelationDirection.Out);
+
+        builder.HasIdentifier(x => x.ID);
     }
 }

@@ -9,5 +9,6 @@ public class ZemljaConfiguration : INodeConfiguration<Zemlja>
 {
     public void Configure(NodeTypeBuilder<Zemlja> builder)
     {
+        builder.HasIdentifier(x => x.ID);
     }
 }

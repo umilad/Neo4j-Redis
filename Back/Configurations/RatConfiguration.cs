@@ -11,5 +11,7 @@ public class RatConfiguration : INodeConfiguration<Rat>
     {
         builder.HasRelationWithSingle(x => x.GodinaDo, "TRAJAO_DO", RelationDirection.Out);
         builder.HasRelationWithMultiple(x => x.Pobednik, "POBEDILA_U", RelationDirection.In);
+
+        builder.HasIdentifier(x => x.ID);
     }
 }

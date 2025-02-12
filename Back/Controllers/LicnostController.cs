@@ -6,13 +6,15 @@ using KrvNijeVoda.Back.Models;
 using System.Reflection.Metadata;
 using System.Diagnostics;
 using KrvNijeVoda.Back;
+using MediatR;
+
 //using Bogus;
 
 namespace KrvNijeVoda.Controllers;
 
 [Route("Licnosti")]
 [ApiController]
-public class LicnostController : ControllerBase
+public class LicnostController(IMediator mediator) : ControllerBase
 {
     // private readonly Neo4jService _neo4jService;
 
@@ -28,6 +30,7 @@ public class LicnostController : ControllerBase
    [HttpPost]
     public async Task<IActionResult> CreateLicnost([FromBody] Licnost licnost)
     {
+
         if (licnost == null)
             return BadRequest("Movie data is required.");
 
@@ -36,6 +39,68 @@ public class LicnostController : ControllerBase
 
         return Ok(licnost);
     }
+
+    [HttpPost("DodajLicnost")]
+    public async Task<IActionResult> DodajLicnost([FromBody] Licnost licnost, CancellationToken cancellationToken)
+    {
+        if (licnost == null)
+            return BadRequest("Niste uneli podatke.");
+        
+
+        if (await _context.Godine.Match(x => x.Where(y => y.ID, licnost.GodinaRodjenja.ID).CountAsync(cancellationToken) == 0))
+            return BadRequest("Godina ne postoji!");
+            //.UpdateAsync(x => x.Set(request)) //Sets the whole object
+        // if(gr == null)
+        //      return BadRequest("Godina ne postoji!");
+
+        // await gs =_context.Godine
+        //     .Match(x => x.Where(y => y.God, licnost.GodinaSmrti))
+        //     .AnyAsync();
+        //     //.UpdateAsync(x => x.Set(request)) //Sets the whole object
+        // if(gs == null)
+        //      return BadRequest("Godina s ne postoji!");
+
+
+        // await m =_context.Mesta
+        //     .Match(x => x.Where(y => y.ID, licnost.MestoRodjenja.ID))
+        //     .AnyAsync();
+        //     //.UpdateAsync(x => x.Set(request)) //Sets the whole object
+        // if(m == null)
+        //      return BadRequest("Mesto ne postoji!");
+
+        var l = new Licnost {
+            ID = Guid.NewGuid(),
+            Titula = licnost.Titula,
+            Ime = licnost.Ime,
+            Prezime = licnost.Prezime,
+            Pol = licnost.Pol,
+            Slika = licnost.Slika,
+            // GodinaRodjenja = gr.God,
+            // GodinaSmrti = gs.God,
+            // MestoRodjenja = mr.ID
+        };
+
+        _context.Licnosti.Add(licnost);
+        await _context.SaveChangesAsync();
+
+        return Ok(licnost);
+
+
+            // Id = Guid.NewGuid(),
+            // FirstName = "Keanu",
+            // LastName = "Reeves",
+            // MoviesAsActors = new List<Movie> {
+            //     new Movie {
+            //     Title = "The Matrix"
+            //     }
+  }
+};
+        // _context.Licnosti.Add(licnost);
+        // await _context.SaveChangesAsync();
+
+        // return Ok(licnost);
+    //}
+
 
 
 
@@ -49,7 +114,7 @@ public class LicnostController : ControllerBase
     //     var licnosti = await _context.Licnosti.ToListAsync();
     //     return Ok(licnosti);
     // }
-}
+//}
 
 // // ✅ Get all Licnost nodes
 //     [HttpGet("all")]

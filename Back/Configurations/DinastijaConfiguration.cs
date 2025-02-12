@@ -12,5 +12,7 @@ public class DinastijaConfiguration : INodeConfiguration<Dinastija>
         builder.HasRelationWithSingle(x => x.PocetakVladavine, "VLADALA_OD", RelationDirection.Out);
         builder.HasRelationWithSingle(x => x.KrajVladavine, "VLADALA_DO", RelationDirection.Out);
         builder.HasRelationWithMultiple(x => x.Clanovi, "PRIPADNICI", RelationDirection.Out);
+
+        builder.HasIdentifier(x => x.ID);
     }
 }

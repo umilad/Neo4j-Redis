@@ -9,5 +9,6 @@ public class LokacijaConfiguration : INodeConfiguration<Lokacija>
 {
     public void Configure(NodeTypeBuilder<Lokacija> builder)
     {
+        builder.HasIdentifier(x => x.ID);
     }
 }

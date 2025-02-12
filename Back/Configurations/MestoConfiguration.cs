@@ -10,5 +10,7 @@ public class MestoConfiguration : INodeConfiguration<Mesto>
     public void Configure(NodeTypeBuilder<Mesto> builder)
     {
         builder.HasRelationWithSingle(x => x.PripadaZemlji, "PRIPADA", RelationDirection.Out);
+
+        builder.HasIdentifier(x => x.ID);
     }
 }

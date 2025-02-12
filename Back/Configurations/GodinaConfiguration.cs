@@ -9,5 +9,6 @@ public class GodinaConfiguration : INodeConfiguration<Godina>
 {
     public void Configure(NodeTypeBuilder<Godina> builder)
     {
+        builder.HasIdentifier(x => x.God);
     }
 }

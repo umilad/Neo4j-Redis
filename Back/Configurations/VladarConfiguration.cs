@@ -17,6 +17,8 @@ public class VladarConfiguration : INodeConfiguration<Vladar>
         builder.HasRelationWithMultiple(x => x.Deca, "JE_RODITELJ", RelationDirection.Out);
         builder.HasRelationWithMultiple(x => x.Supruznici, "JE_SUPRUZNIK", RelationDirection.Out);
         builder.HasRelationWithMultiple(x => x.Dogadjaji, "JE_UCESTVOVAO", RelationDirection.Out);
+
+        builder.HasIdentifier(x => x.ID);
         // builder.HasRelationWithSingle(x => x.MestoRodjenja, "RODJEN_U", RelationDirection.Out);
         // builder.HasRelationWithSingle(x => x.GodinaRodjenja, "RODJEN", RelationDirection.Out);
         // builder.HasRelationWithSingle(x => x.GodinaSmrti, "UMRO", RelationDirection.Out);

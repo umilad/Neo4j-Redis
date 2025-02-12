@@ -16,5 +16,7 @@ public class BitkaConfiguration : INodeConfiguration<Bitka>
     {
         builder.HasRelationWithSingle(x => x.Godina, "DESILA_SE", RelationDirection.Out);
         builder.HasRelationWithSingle(x => x.Rat, "PRIPADA", RelationDirection.Out);
+
+        builder.HasIdentifier(x => x.ID);
     }
 }

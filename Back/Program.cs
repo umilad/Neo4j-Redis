@@ -37,6 +37,12 @@ builder.Services.Configure<Neo4jOptions>(builder.Configuration.GetSection("Neo4j
 //builder.Services.AddSingleton<LicnostConfiguration>();
 
 //builder.Services.AddNeo4j<MyGraphContext>(builder.Configuration, typeof(Program).Assembly);
+// builder.Services.AddMediatR(builder.Configuration, options => 
+// {
+//     options
+//     .RegisterServicesFromAssembly(typeof(Program).Assembly);
+// });
+builder.Services.AddMediatR(options => options.RegisterServicesFromAssembly(typeof(Program).Assembly));
 builder.Services.AddNeo4j<MyGraphContext>(builder.Configuration, options =>
 {
     options

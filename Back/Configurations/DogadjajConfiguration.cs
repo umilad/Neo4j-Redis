@@ -12,5 +12,7 @@ public class DogadjajConfiguration : INodeConfiguration<Dogadjaj>
         builder.HasRelationWithSingle(x => x.Godina, "DESIO_SE", RelationDirection.Out);
         builder.HasRelationWithSingle(x => x.Lokacija, "DESIO_SE_U", RelationDirection.Out);
         builder.HasRelationWithMultiple(x => x.Ucesnici, "UCESNICI", RelationDirection.Out);
+
+        builder.HasIdentifier(x => x.ID);
     }
 }
